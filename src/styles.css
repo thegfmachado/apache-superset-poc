@@ -222,3 +222,289 @@ body {
   background: #fff2e8;
   border-color: #ffbb96;
 }
+
+/* ═══════════════════════════════════════════════
+   Teste 8 — Superset Integration
+   ═══════════════════════════════════════════════ */
+
+/* Login card */
+.superset-login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+  border: 1px solid #d6e4ff;
+  border-radius: 12px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.superset-login-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.superset-login-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.superset-login-subtitle {
+  font-size: 13px;
+  color: #8c8c8c;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.superset-login-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.superset-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.superset-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.superset-field input {
+  padding: 10px 14px;
+  border: 1.5px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  background: #fff;
+}
+
+.superset-field input:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.1);
+}
+
+.superset-connect-btn {
+  width: 100%;
+  padding: 11px 20px;
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.superset-connect-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.superset-connect-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Stats */
+.superset-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.superset-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 12px;
+  background: linear-gradient(135deg, #f8faff, #f0f5ff);
+  border: 1px solid #d6e4ff;
+  border-radius: 10px;
+}
+
+.superset-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1890ff;
+  line-height: 1;
+}
+
+.superset-stat-label {
+  font-size: 11px;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Chart selector */
+.superset-chart-selector {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 16px;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.superset-select-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.superset-select-wrapper label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.superset-select-wrapper select {
+  padding: 10px 14px;
+  border: 1.5px solid #d9d9d9;
+  border-radius: 8px;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.superset-select-wrapper select:focus {
+  border-color: #1890ff;
+}
+
+.superset-load-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #1890ff, #096dd9);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.superset-load-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.superset-load-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Dashboards */
+.superset-dashboards {
+  margin-bottom: 16px;
+}
+
+.superset-dashboards label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.superset-dashboard-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.superset-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.superset-chip:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+  background: #f0f5ff;
+}
+
+/* Chart area */
+.superset-chart-area {
+  position: relative;
+  margin-top: 16px;
+}
+
+.superset-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.superset-loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e8e8e8;
+  border-top-color: #1890ff;
+  border-radius: 50%;
+  animation: superset-spin 0.7s linear infinite;
+}
+
+.superset-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: superset-spin 0.7s linear infinite;
+}
+
+@keyframes superset-spin {
+  to { transform: rotate(360deg); }
+}

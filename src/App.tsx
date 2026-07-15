@@ -6,8 +6,9 @@ import { TestZoom } from './tests/TestZoom';
 import { TestMultipleActivations } from './tests/TestMultipleActivations';
 import { TestUpdateControl } from './tests/TestUpdateControl';
 import { TestPreventDuplicates } from './tests/TestPreventDuplicates';
+import { TestSupersetIntegration } from './tests/TestSupersetIntegration';
 
-type TestId = 'all' | 'bg-color' | '3d' | 'large-data' | 'zoom' | 'activations' | 'update-control' | 'duplicates';
+type TestId = 'all' | 'bg-color' | '3d' | 'large-data' | 'zoom' | 'activations' | 'update-control' | 'duplicates' | 'superset';
 
 export default function App() {
   const [activeTest, setActiveTest] = useState<TestId>('all');
@@ -21,6 +22,7 @@ export default function App() {
     { id: 'activations', label: '5. Múltiplos Triggers' },
     { id: 'update-control', label: '6. Controle Update' },
     { id: 'duplicates', label: '7. Prevenir Duplicatas' },
+    { id: 'superset', label: '8. Superset Real' },
   ];
 
   const shouldShow = (id: TestId) => activeTest === 'all' || activeTest === id;
@@ -52,6 +54,7 @@ export default function App() {
         {shouldShow('activations') && <TestMultipleActivations />}
         {shouldShow('update-control') && <TestUpdateControl />}
         {shouldShow('duplicates') && <TestPreventDuplicates />}
+        {shouldShow('superset') && <TestSupersetIntegration />}
       </div>
     </div>
   );

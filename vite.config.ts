@@ -5,5 +5,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    proxy: {
+      '/superset-api': {
+        target: 'http://172.16.252.111:8088',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/superset-api/, ''),
+      },
+    },
   },
 });
