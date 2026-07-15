@@ -1,8 +1,4 @@
-# Ignorar
-__pycache__/
-*.pyc
+node_modules/
+dist/
 .env
 *.log
-
-# Docker volumes locais
-data/
