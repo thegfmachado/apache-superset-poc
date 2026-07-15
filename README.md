@@ -130,6 +130,9 @@ Se a opção for usar o **Superset diretamente como interface** (onde o usuário
 
 ### Alternativas para 3D no Superset
 
+> **Por que o 3D funciona na POC (teste 2) mas não no Superset?**
+> Porque na POC nós controlamos o código — instalamos o pacote `echarts-gl` e usamos livremente. O Superset também usa ECharts internamente, mas **não inclui `echarts-gl` no build**. Quando o usuário cria um chart pela interface do Superset, 3D simplesmente não aparece como opção. Para aparecer, seria necessário criar um plugin de visualização, registrar no código fonte do Superset e fazer um build customizado do frontend — por isso o esforço é alto.
+
 1. **Plugin customizado** — Desenvolver chart plugin com `echarts-gl`. Requer build custom do frontend. Esforço: **alto**.
 2. **Componente separado** — Superset para tudo + componente React externo para 3D, mesma base de dados. Esforço: **médio**.
 3. **Deck.gl** — Plugin já incluído no Superset com visualizações 3D (hexagons, scatter). Esforço: **baixo**.

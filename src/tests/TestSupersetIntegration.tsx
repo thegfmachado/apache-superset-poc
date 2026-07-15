@@ -20,6 +20,8 @@ export function TestSupersetIntegration() {
   const chartRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<echarts.ECharts | null>(null);
 
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
   const [username, setUsername] = useState('admin');
@@ -329,7 +331,18 @@ export function TestSupersetIntegration() {
         e renderiza com ECharts — validando que os mesmos controles funcionam com dados de produção.
       </p>
 
-      {!connected ? (
+      {!isLocal && !connected && (
+        <div style={{ padding: 20, background: '#fff7e6', border: '1px solid #ffd591', borderRadius: 8, marginBottom: 16, fontSize: 14 }}>
+          <strong>⚠ Disponível apenas em desenvolvimento local</strong>
+          <p style={{ margin: '8px 0 0', color: '#666' }}>
+            Este teste conecta ao Superset via proxy do Vite (<code>npm run dev</code>) na rede interna.
+            Na Vercel ou outros deploys externos, o Superset não é acessível.
+            Execute <code>npm run dev</code> localmente para testar.
+          </p>
+        </div>
+      )}
+
+      {!connected && isLocal ? (
         <div className="superset-login-card">
           <div className="superset-login-icon">📊</div>
           <h3 className="superset-login-title">Conectar ao Apache Superset</h3>
@@ -364,7 +377,7 @@ export function TestSupersetIntegration() {
             )}
           </button>
         </div>
-      ) : (
+      ) : connected ? (
         <>
           {/* Stats */}
           <div className="superset-stats">
@@ -435,7 +448,7 @@ export function TestSupersetIntegration() {
             </div>
           )}
         </>
-      )}
+      ) : null}
 
       {/* Chart area with loading overlay */}
       <div className="superset-chart-area">
