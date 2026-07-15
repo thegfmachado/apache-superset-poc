@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
 import { generateBarData, createTimestamp, LogEntry } from '../utils';
 
@@ -22,18 +22,30 @@ export function TestUpdateControl() {
   const [updateCount, setUpdateCount] = useState(0);
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
+  // Refs para garantir que applyChanges sempre usa os valores mais recentes
+  const dataCountRef = useRef(dataCount);
+  const colorSchemeRef = useRef(colorScheme);
+  const chartTitleRef = useRef(chartTitle);
+  const updateCountRef = useRef(updateCount);
+  const pendingChangesRef = useRef(pendingChanges);
+  dataCountRef.current = dataCount;
+  colorSchemeRef.current = colorScheme;
+  chartTitleRef.current = chartTitle;
+  updateCountRef.current = updateCount;
+  pendingChangesRef.current = pendingChanges;
+
   const addLog = (message: string, type: LogEntry['type'] = 'info') => {
     setLogs(prev => [...prev.slice(-20), { timestamp: createTimestamp(), message, type }]);
   };
 
-  const applyChanges = useCallback(() => {
+  const applyChanges = () => {
     if (!instanceRef.current) return;
 
     const startTime = performance.now();
-    const data = generateBarData(dataCount);
+    const data = generateBarData(dataCountRef.current);
 
     instanceRef.current.setOption({
-      title: { text: chartTitle, left: 'center', textStyle: { fontSize: 14 } },
+      title: { text: chartTitleRef.current, left: 'center', textStyle: { fontSize: 14 } },
       tooltip: { trigger: 'axis' },
       xAxis: { type: 'category', data: data.categories },
       yAxis: { type: 'value' },
@@ -41,7 +53,7 @@ export function TestUpdateControl() {
       series: [{
         type: 'bar',
         data: data.values,
-        itemStyle: { color: colorScheme },
+        itemStyle: { color: colorSchemeRef.current },
         large: true,
       }],
     }, { notMerge: true });
@@ -49,8 +61,8 @@ export function TestUpdateControl() {
     const elapsed = (performance.now() - startTime).toFixed(1);
     setUpdateCount(prev => prev + 1);
     setPendingChanges([]);
-    addLog(`UPDATE #${updateCount + 1} aplicado (${pendingChanges.length} changes batched) em ${elapsed}ms`, 'info');
-  }, [dataCount, colorScheme, chartTitle, updateCount, pendingChanges]);
+    addLog(`UPDATE #${updateCountRef.current + 1} aplicado (${pendingChangesRef.current.length} changes batched) em ${elapsed}ms`, 'info');
+  };
 
   // Registrar mudança pendente (sem aplicar imediatamente)
   const registerChange = (description: string) => {
@@ -80,7 +92,7 @@ export function TestUpdateControl() {
       }, 500); // debounce de 500ms
       return () => clearTimeout(timer);
     }
-  }, [autoUpdate, pendingChanges, applyChanges]);
+  }, [autoUpdate, pendingChanges]);
 
   return (
     <section className="test-section">

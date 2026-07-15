@@ -19,6 +19,12 @@ export function TestMultipleActivations() {
   const [filter, setFilter] = useState('all');
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
+  // Refs para evitar stale closures no event handler do ECharts
+  const drillLevelRef = useRef(drillLevel);
+  const selectedCategoryRef = useRef(selectedCategory);
+  drillLevelRef.current = drillLevel;
+  selectedCategoryRef.current = selectedCategory;
+
   const addLog = (message: string, type: LogEntry['type'] = 'info') => {
     setLogs(prev => [...prev.slice(-30), { timestamp: createTimestamp(), message, type }]);
   };
@@ -87,14 +93,17 @@ export function TestMultipleActivations() {
     instanceRef.current.on('click', (params: any) => {
       addLog(`CLICK no gráfico: "${params.name}" (valor: ${params.value})`, 'info');
 
-      if (drillLevel === 0) {
+      const currentLevel = drillLevelRef.current;
+      const currentCategory = selectedCategoryRef.current;
+
+      if (currentLevel === 0) {
         setDrillLevel(1);
         setSelectedCategory(params.name);
         renderLevel1(params.name);
         addLog(`DRILL-DOWN: Nível 0 → Nível 1 (${params.name})`, 'warn');
-      } else if (drillLevel === 1 && selectedCategory) {
+      } else if (currentLevel === 1 && currentCategory) {
         setDrillLevel(2);
-        renderLevel2(selectedCategory, params.name);
+        renderLevel2(currentCategory, params.name);
         addLog(`DRILL-DOWN: Nível 1 → Nível 2 (${params.name})`, 'warn');
       }
     });
@@ -140,9 +149,11 @@ export function TestMultipleActivations() {
 
   const listItems = drillLevel === 0
     ? Object.keys(hierarchyData)
-    : drillLevel === 1 && selectedCategory
+    : drillLevel === 1 && selectedCategory && hierarchyData[selectedCategory]
       ? Object.keys(hierarchyData[selectedCategory])
-      : ['Jan', 'Fev', 'Mar'];
+      : drillLevel === 2
+        ? ['Jan', 'Fev', 'Mar']
+        : Object.keys(hierarchyData);
 
   return (
     <section className="test-section">

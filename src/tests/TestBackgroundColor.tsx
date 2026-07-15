@@ -84,7 +84,9 @@ export function TestBackgroundColor() {
         ))}
       </div>
 
-      <div className="chart-container" ref={chartRef} style={{ backgroundColor: bgColor }} />
+      <div style={{ backgroundColor: bgColor, padding: 12, borderRadius: 8 }}>
+        <div className="chart-container" ref={chartRef} />
+      </div>
 
       <div className="log-panel">
         {logs.map((log, i) => (
